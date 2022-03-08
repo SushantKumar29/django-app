@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<div>
+  {% block content %}
+  <a href="{% url 'media:create' %}" class="float-end btn btn-sm btn-primary"
+    >Create new Media</a
+  >
+  <h3>Media</h3>
+  <hr />
+  {% if object_list %}
+  <div class="row">
+    {% for object in object_list %} {% if object.media_file %}
+    <div class="col-12 col-md-4 p-3">
+      <img src="{{ object.get_media_url }}" class="img-thumbnail" alt="..." /> -
+      {{ object.name }}
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+  {% else %}
+  <h5 class="text-danger">No Media Added yet</h5>
+  {% endif %} {% endblock content %}
+</div>

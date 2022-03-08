@@ -1,0 +1,13 @@
+<form
+  id="image-upload-form"
+  action="."
+  method="POST"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+  <div class="">{{ form.as_p }}</div>
+
+  <div class="mt-4">
+    <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+  </div>
+</form>
