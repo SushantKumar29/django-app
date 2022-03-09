@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'djangoapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_name',
+        'NAME': 'django_media_db',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'mindfire',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
@@ -105,6 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+    {
+        'NAME': 'accounts.validators.NumberValidator',
     },
 ]
 
