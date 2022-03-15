@@ -4,7 +4,7 @@ from .models import Media
 
 class MediaAdmin(admin.ModelAdmin):
     model = Media
-    list_display = ['id', 'media_file', 'created_at', 'updated_at']
+    list_display = ['name', 'media_file', 'created_at', 'updated_at']
     search_fields = ['description']
 
 

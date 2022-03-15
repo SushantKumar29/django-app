@@ -19,6 +19,8 @@ class MediaForm(forms.ModelForm):
             field_attrs = {
                 'placeholder': f'Media {str(field)}',
                 'class': 'form-control',
+                # 'style': 'min-height: 10rem;'
             }
             self.fields[str(field)].widget.attrs.update(field_attrs)
         self.fields['description'].widget.attrs.update({'rows': 3})
+        self.fields['media_file'].help_text = '<small class="form-text text-muted">(File must be jpg / jpeg / png / gif / mp4)</small>'

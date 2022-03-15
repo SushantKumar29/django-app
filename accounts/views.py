@@ -5,6 +5,9 @@ from .forms import RegisterForm
 
 
 def login_view(request):
+    print(request.user)
+    if request.user.is_authenticated:
+        return redirect('/pictures')
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -20,6 +23,8 @@ def login_view(request):
 
 
 def logout_view(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login')
     if request.method == 'POST':
         logout(request)
         return redirect('/accounts/login')

@@ -27,7 +27,6 @@ class RegisterForm(UserCreationForm):
 
         username = data.get('username')
         qs = User.objects.all().filter(username__iexact=username)
-        print(qs)
         if qs.exists():
             self.add_error(
                 'username', f'"{username}" is already taken. Please pick another')

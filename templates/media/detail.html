@@ -1,6 +1,59 @@
 {% extends "base.html" %}
 <div>
   {% block content %}
-  <div></div>
+  <div class="mx-auto">
+    {% if message %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endif %}
+    <h3>{{ object.name }}</h3>
+    {% if object.is_video %}
+    <video controls class="w-50">
+      <source src="{{ object.get_media_url }}" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    {% else %}
+    <img
+      src="{{ object.get_media_url }}"
+      alt="{{ object.name }}"
+      class="w-50"
+    />
+    {% endif %}
+    <div class="my-5">
+      <dl class="row">
+        <dt class="col-sm-1">Description:</dt>
+        <dd class="col-sm-5">{{ object.description }}</dd>
+      </dl>
+    </div>
+    <hr />
+    <div class="mx-auto">
+      <form action="." method="POST" class="w-75" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- <div>{{ form.as_p }}</div> -->
+        <div>
+          {% for field in form %}
+          <div
+            class="'{% if field.field.required %}{{ form.required_css_class }}{% endif %}"
+          >
+            {{ field.errors }} {{ field.label_tag }} {{ field }}
+            <div>
+              {% if field.help_text %}
+              <p class="help">{{ field.help_text|safe }}</p>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <button class="btn btn-sm btn-success my-4" type="submit">Save</button>
+      </form>
+    </div>
+  </div>
   {% endblock content %}
 </div>

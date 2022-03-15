@@ -2,19 +2,76 @@
 <div>
   {% block content %}
   <a href="{% url 'media:create' %}" class="float-end btn btn-sm btn-primary"
-    >Create new Media</a
+    ><i class="fa fa-plus"></i> Create new Media</a
   >
   <h3>Media</h3>
   <hr />
   {% if object_list %}
-  <div class="row">
+  <div class="row g-4">
     {% for object in object_list %} {% if object.media_file %}
-    <div class="col-12 col-md-4 p-3">
-      <img src="{{ object.get_media_url }}" class="img-thumbnail" alt="..." /> -
-      {{ object.name }}
+    <div class="col-12 col-md-3">
+      <div class="card h-100">
+        <div style="height: 10rem; width: 100%">
+          {% if object.is_video %}
+          <video
+            controls
+            style="height: inherit; width: inherit; object-fit: cover"
+          >
+            <source src="{{ object.get_media_url }}" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {% else %}
+          <img
+            src="{{ object.get_media_url }}"
+            alt="..."
+            style="height: inherit; width: inherit; object-fit: cover"
+          />
+          {% endif %}
+        </div>
+        <div class="card-body" style="height: 8rem">
+          <h5 class="card-title">{{ object.name }}</h5>
+          <p class="card-text" style="height: 4rem; overflow: scroll">
+            <small>{{ object.description }}</small>
+          </p>
+        </div>
+        <div class="card-footer">
+          <a href="{{ object.get_absolute_url }}" class="btn btn-sm btn-primary"
+            >View</a
+          >
+        </div>
+      </div>
     </div>
+
     {% endif %} {% endfor %}
   </div>
+  <nav aria-label="Page navigation example" class="my-5">
+    <ul class="pagination justify-content-end align-items-center">
+      <span class="current mx-4">
+        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+      </span>
+      {% if object_list.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo; First</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ object_list.previous_page_number }}"
+          >Previous</a
+        >
+      </li>
+      {% endif %} {% if object_list.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ object_list.next_page_number }}"
+          >Next</a
+        >
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ object_list.paginator.num_pages }}"
+          >Last &raquo;</a
+        >
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
   {% else %}
   <h5 class="text-danger">No Media Added yet</h5>
   {% endif %} {% endblock content %}

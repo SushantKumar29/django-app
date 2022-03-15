@@ -1,0 +1,14 @@
+<div>
+  <form action="/search/" method="GET" class="d-flex">
+    <input
+      type="search"
+      id="search-query"
+      name="query"
+      class="form-control form-control-sm me-2"
+      placeholder="Search"
+      value="{{ request.GET.query }}"
+    />
+    <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+  </form>
+  <div id="typehead-results"></div>
+</div>
