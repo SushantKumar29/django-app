@@ -18,14 +18,15 @@ class RegisterForm(UserCreationForm):
             }
             self.fields[str(field)].widget.attrs.update(field_attrs)
             # self.fields[field].help_text = None
-            self.fields['username'].help_text = '<small class="form-text text-muted">(Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only)</small>'
-            self.fields['password1'].help_text = '<small class="form-text text-muted"> <ul> <li>Your password cannot be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password cannot be a commonly used password.</li><li>Your password cannot be entirely numeric.</li><li>Your password must contain atleast one numeric value</li></ul></small>'
-            self.fields['password2'].help_text = '<small class="form-text text-muted">(Enter the same password as before, for verification.)</small>'
+            self.fields['username'].help_text = 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only'
+            self.fields['password1'].help_text = 'Your password cannot be too similar to your other personal information.\n\nYour password must contain at least 8 characters.\n\nYour password cannot be a commonly used password.\n\nYour password cannot be entirely numeric.\n\nYour password must contain atleast one numeric value.'
+            self.fields['password2'].help_text = 'Enter the same password as before, for verification.'
 
     def clean(self):
         data = self.cleaned_data
 
         username = data.get('username')
+        # email = data.get('email')
         qs = User.objects.all().filter(username__iexact=username)
         if qs.exists():
             self.add_error(

@@ -1,8 +1,36 @@
 {% extends 'base.html'%} {% block content %} {% if not request.user.is_authenticated %}
 <div class="mx-auto">
+  {% if message %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {% endif %}
   <h3>Register</h3>
   <form method="POST" class="w-75 bg-light p-5 rounded">
-    {% csrf_token %} {{ form.as_p }}
+    {% csrf_token %} {% for field in form %}
+    <div style="min-height: 5.5rem">
+      {{ field.label }}
+      <div class="d-flex align-items-center">
+        {{ field }}
+        <span title="{{ field.help_text }}" class="text-info ms-3">
+          {% if field.help_text %}
+          <i class="fa fa-question-circle"></i>
+          {% endif %}
+        </span>
+      </div>
+      <!-- <small class="help">{{ field.help_text|safe }}</small> -->
+
+      {% for error in field.errors %}
+      <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+    {% endfor %}
     <button type="submit" class="btn btn-sm btn-primary mt-4">Register</button>
   </form>
   <p>Already have an account? Please <a href="/accounts/login/">Login</a></p>

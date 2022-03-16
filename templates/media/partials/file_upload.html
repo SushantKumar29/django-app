@@ -3,11 +3,22 @@
   action="."
   method="POST"
   enctype="multipart/form-data"
+  class="w-75"
 >
   {% csrf_token %}
-  <div class="">{{ form.as_p }}</div>
+  <div class="media-form">
+    {% for field in form %}
+    <div style="min-height: 6rem">
+      {{ field }} {% if not field.errors and field.help_text %}
+      <small class="help">{{ field.help_text|safe }}</small>
+      {% endif %} {% for error in field.errors %}
+      <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
 
   <div class="mt-4">
-    <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
   </div>
 </form>

@@ -34,25 +34,7 @@
     </div>
     <hr />
     <div class="mx-auto">
-      <form action="." method="POST" class="w-75" enctype="multipart/form-data">
-        {% csrf_token %}
-        <!-- <div>{{ form.as_p }}</div> -->
-        <div>
-          {% for field in form %}
-          <div
-            class="'{% if field.field.required %}{{ form.required_css_class }}{% endif %}"
-          >
-            {{ field.errors }} {{ field.label_tag }} {{ field }}
-            <div>
-              {% if field.help_text %}
-              <p class="help">{{ field.help_text|safe }}</p>
-              {% endif %}
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        <button class="btn btn-sm btn-success my-4" type="submit">Save</button>
-      </form>
+      {% include 'media/partials/file_upload.html' %}
     </div>
   </div>
   {% endblock content %}
