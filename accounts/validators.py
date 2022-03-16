@@ -11,3 +11,8 @@ class NumberValidator(object):
                 _("The password must contain at least 1 digit, 0-9."),
                 code='password_no_number',
             )
+
+    def get_help_text(self):
+        return _(
+            "Your password must contain at least 1 digit, 0-9."
+        )

@@ -42,7 +42,7 @@ def media_create_view(request):
 def media_search_view(request):
     query_dict = request.GET
     query = query_dict.get('query')
-    qs = Media.objects.search(query=query)
+    qs = Media.objects.search(query=query, user=request.user)
     context = {
         "object_list": qs
     }
