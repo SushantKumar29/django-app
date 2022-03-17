@@ -64,7 +64,9 @@ def register_view(request):
             subject = 'Your accounts need to be verified'
             message = f'Hi click the link to verify your account http://{current_site.domain}/activate/{uidb64}/{token}'
             send_mail_after_registration(subject, to_email, message)
-            context['message'] = 'Please confirm your email address to complete the registration'
+            messages.success(
+                request, 'Please confirm your email address to complete the registration')
+            return redirect('/accounts/login')
     else:
         form = RegisterForm()
     context['form'] = form
